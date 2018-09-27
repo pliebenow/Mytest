@@ -23,35 +23,51 @@ class Game():
     def turn(self, player):
         player.play()
         self.draw_board()
-        self.evaluate(player)
 
     def play(self, player_A, player_B):
         self.draw_board()
         while True:
             self.turn(player_A)
+            result = self.evaluate(player_A)
+            if result:
+                return result
             self.turn(player_B)
-            if (self.evaluate(player_A) and self.evaluate(player_B)):
-                print("GAME OVER")
-                break
+            result = self.evaluate(player_B)
+            if result:
+                return result
 
     def evaluate(self, player):
-            is_full = 0
+        is_full = 0
+        for row in range(Game.length):
             counter = 0
-            for row in range(Game.length):
-                for column in range(Game.width):
-                    # print(f"row {row}, col: {column}")
-                    # print(Game.board[row][column])
-                    if Game.board[row][column] == player.symbol:
-                        counter += 1
-                    else:
-                        continue
+            for column in range(Game.width):
+                # print(f"row {row}, col: {column}")
+                # print(Game.board[row][column])
+                if Game.board[row][column] == player.symbol:
+                    counter += 1
+                if Game.board[row][column]:
+                    is_full += 1
 
-                if counter == 3:
-                    # print(f"{player} wins")
-                    # self.print_board()
-                    return True
+            if counter == 3:
+                # print(f"{player} wins")
+                # self.print_board()
+                return f"{player.player_name} won"
 
-            if is_full == 9:
-                print("draw")
-                return True
-            return False
+        counter1 = 0
+        counter2 = 0
+
+        for row_col in range(Game.length):
+            if Game.board[row_col][row_col] == player.symbol:
+                counter1 += 1
+            if Game.board[1 - row_col][1 - row_col] == player.symbol:
+                counter2 += 1
+        # print(f"counters: {counter1}, {counter2}")
+        if counter1 == 3 or counter2 == 3:
+            return f"{player.player_name} won"
+
+        if is_full == Game.width * Game.length:
+            return "draw"
+
+        return None
+
+

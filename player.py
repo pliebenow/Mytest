@@ -1,6 +1,6 @@
-class T_player():
+class Player():
 
-    def __init__(self,game,symbol,turn):
+    def __init__(self, game, symbol, turn):
         self.game = game
         self.symbol = symbol
         self.turn = turn

@@ -1,10 +1,9 @@
 class Game():
     length = 3
     width = 3
-    board = [[None] * 3 for _ in range(3)]
 
     def __init__(self):
-        pass
+        self.board = [[None] * Game.length for _ in range(Game.width)]
 
     def draw_board(self):
         for row in self.board:
@@ -41,28 +40,33 @@ class Game():
         for row in range(Game.length):
             counter = 0
             for column in range(Game.width):
-                # print(f"row {row}, col: {column}")
-                # print(Game.board[row][column])
-                if Game.board[row][column] == player.symbol:
+                if self.board[row][column] == player.symbol:
                     counter += 1
-                if Game.board[row][column]:
+                if self.board[row][column]:
                     is_full += 1
 
             if counter == 3:
-                # print(f"{player} wins")
-                # self.print_board()
                 return f"{player.player_name} won"
 
-        counter1 = 0
-        counter2 = 0
+        for column in range(Game.length):
+            counter = 0
+            for row in range(Game.width):
+                if self.board[row][column] == player.symbol:
+                    counter += 1
+
+            if counter == 3:
+                return f"{player.player_name} won"
+
+        major_counter = 0  # this one: \
+        minor_counter = 0  # this one: /
 
         for row_col in range(Game.length):
-            if Game.board[row_col][row_col] == player.symbol:
-                counter1 += 1
-            if Game.board[1 - row_col][1 - row_col] == player.symbol:
-                counter2 += 1
-        # print(f"counters: {counter1}, {counter2}")
-        if counter1 == 3 or counter2 == 3:
+            if self.board[row_col][row_col] == player.symbol:
+                major_counter += 1
+            if self.board[2 - row_col][row_col] == player.symbol:
+                minor_counter += 1
+            pass
+        if major_counter == 3 or minor_counter == 3:
             return f"{player.player_name} won"
 
         if is_full == Game.width * Game.length:
@@ -71,3 +75,11 @@ class Game():
         return None
 
 
+if __name__ == "__main__":
+    from player import Player
+
+    battlefield = Game()
+
+    anita = Player(battlefield, "x", "Anita")
+    kevin = Player(battlefield, "o", "Kevin")
+    final_result = battlefield.play(anita, kevin)

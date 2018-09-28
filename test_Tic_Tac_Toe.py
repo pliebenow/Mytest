@@ -11,34 +11,58 @@ def mockup_factory(draws):
 
 
 battlefield = Game()
-random_draws = [(i, j) for i in range(3) for j in range(3)]
-Player.play = mockup_factory(random_draws)
+draws = [(0, 0), (0, 1), (1, 1), (0, 2), (2, 2), (1, 0), (1, 2), (2, 0), (2, 1)]
+Player.play = mockup_factory(draws)
 
 Felix = Player(battlefield, "o", "Felix")
 Paul = Player(battlefield, "*", "Paul")
 
-
-# if you want to give Felix and Paul specific instructions.
-# As is they both get the same instruction, the method play_mockup
-# Felix.play = play_mockup
-# Paul.play = play_mockup
-
 final_result = battlefield.play(Felix, Paul)
-assert (final_result == "Felix won", "Test game one does not bear the right result.")
+assert final_result == "Felix won", "Test game 1 does not bear the right " + \
+        f"result. It says '{final_result}' instead of 'Felix won'"
 
 
 # second game
 
-# battlefield = Game()
+battlefield = Game()
 # draws_player1 = [(0, 0)]
 # draws_player2 = [(0, 2)]
+draws = [(0, 0), (0, 2), (2, 2), (0, 1), (1, 2), (1, 1), (2, 1), (1, 0), (2, 0)]
+Player.play = mockup_factory(draws)
 
-# anita = Player(battlefield, "x", "Anita")
+anita = Player(battlefield, "x", "Anita")
 # anita.play = mockup_factory(draws_player1)
-# kevin = Player(battlefield, "o", "Kevin")
+kevin = Player(battlefield, "o", "Kevin")
 # kevin.play = mockup_factory(draws_player2)
-# final_result = battlefield.play(anita, kevin)
+final_result = battlefield.play(anita, kevin)
+
+assert final_result == "Anita won", "Test game 2 does not bear the right " + \
+    f"result, it says '{final_result}' instead of 'Anita won'"
 
 
-# print("who won?", final_result)
-# print("\n\n")
+# third game
+
+battlefield = Game()
+draws = [(2, 0), (0, 0), (1, 1), (1, 0), (0, 2), (1, 2), (0, 1), (2, 1), (2, 2)]
+Player.play = mockup_factory(draws)
+
+theobald = Player(battlefield, "x", "Theobald")
+mara = Player(battlefield, "o", "Mara")
+final_result = battlefield.play(theobald, mara)
+
+assert final_result == "Theobald won", "Test game 3 does not bear the right " + \
+    f"result, it says '{final_result}' instead of 'Theobald won'"
+
+# fourth game
+
+battlefield = Game()
+draws = [(2, 1), (0, 1), (0, 2), (2, 0), (1, 0), (1, 2), (2, 2), (1, 1), (0, 0)]
+Player.play = mockup_factory(draws)
+
+theobald = Player(battlefield, "x", "Theobald")
+mara = Player(battlefield, "o", "Mara")
+final_result = battlefield.play(theobald, mara)
+
+assert final_result == "draw", "Test game 4 does not bear the right " + \
+    f"result, it says '{final_result}' instead of 'Theobald won'"
+

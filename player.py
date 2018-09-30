@@ -1,10 +1,10 @@
 class Player():
 
-    def __init__(self, battlefield, symbol, turn):
+    def __init__(self, battlefield, symbol, player_name):
         self.battlefield = battlefield
         self.symbol = symbol
-        self.turn = turn
-        self.turn_tuples = []
+        # self.turn_tuples = []
+        self.player_name = player_name
 
     def play(self):
         # print(f"its {player}s turn")
@@ -15,7 +15,7 @@ class Player():
         try:
             cross_pos_row = int(cross_pos_row)
             cross_pos_column = int(cross_pos_column)
-            cross_pos_tuple = (cross_pos_row, cross_pos_column)
+            # cross_pos_tuple = (cross_pos_row, cross_pos_column)
         except ValueError:
             print("Input was not an integer.")
 
@@ -25,7 +25,7 @@ class Player():
         # else:
         #     return cross_pos_tuple
         self.battlefield.board[cross_pos_row][cross_pos_column] = self.symbol
-        self.turn_tuples.append(cross_pos_tuple)
+        # self.turn_tuples.append(cross_pos_tuple)
 
 
 

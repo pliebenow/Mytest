@@ -2,8 +2,9 @@ class Game():
     length = 3
     width = 3
 
-    def __init__(self):
+    def __init__(self, print_board=True):
         self.board = [[None] * Game.length for _ in range(Game.width)]
+        self.print_board = print_board
 
     def draw_board(self):
         for row in self.board:
@@ -21,10 +22,12 @@ class Game():
 
     def turn(self, player):
         player.play()
-        self.draw_board()
+        if self.print_board:
+            self.draw_board()
 
     def play(self, player_A, player_B):
-        self.draw_board()
+        if self.print_board:
+            self.draw_board()
         while True:
             self.turn(player_A)
             result = self.evaluate(player_A)
